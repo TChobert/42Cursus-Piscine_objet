@@ -17,8 +17,10 @@ class Bank {
 		Bank();
 		~Bank(void);
 
-		void createAccount(int amount);
+		void createAccount(int value);
 		void removeAccount(int id);
+		void makeWithdrawal(int id, int value);
+		void makeDeposit(int id, int value);
 
 		friend std::ostream& operator << (std::ostream& p_os, const Bank& p_bank) {
 			p_os << "Bank informations : " << std::endl;
