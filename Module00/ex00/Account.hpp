@@ -10,6 +10,7 @@ class Account {
 
 		int _id;
 		int _value;
+		int _loan;
 
 		Account(int id, int value);
 		~Account(void);

@@ -17,14 +17,16 @@ class Bank {
 		Bank();
 		~Bank(void);
 
-		void createAccount(int value);
-		void removeAccount(int id);
-		void makeWithdrawal(int id, int value);
-		void makeDeposit(int id, int value);
+		void createAccount(const int value);
+		void removeAccount(const int id);
+		void makeWithdrawal(const int id, const int value);
+		void makeDeposit(const int id, const int value);
+		void grantLoan(const int id, const int value);
+		int getLiquidity(void) const;
 
 		friend std::ostream& operator << (std::ostream& p_os, const Bank& p_bank) {
 			p_os << "Bank informations : " << std::endl;
-			p_os << "Liquidity : " << p_bank.liquidity << std::endl;
+			p_os << "Liquidity : " << p_bank.getliquidity() << std::endl;
 			for (auto &clientAccount : p_bank.clientAccounts) {
 				p_os << *clientAccount << std::endl;
 			}

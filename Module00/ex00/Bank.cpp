@@ -10,12 +10,12 @@ Bank::~Bank(void) {
 	_clientAccounts.clear();
 }
 
-void Bank::createAccount(int value) {
+void Bank::createAccount(const int value) {
 
 	if (value < 0) {
 		std::cerr << "Bank: you can't create an account with a negative amount! Rejected!" << std::endl;
 	}
-	Account *newAccount = new Account(_id++, _value);
+	Account *newAccount = new Account(_id++, value);
 	//Prelever taxe 5%
 	registerAccount(newAccount);
 	std::cout << "Bank: account n* " << newAccount->id << " created with an amount of: " << newAccount->_value << std::endl;
@@ -40,7 +40,7 @@ void Bank::registerAccount(Account *account) {
 	_clientAccounts.push_back(account);
 }
 
-void Bank::removeAccount(int id) {
+void Bank::removeAccount(const int id) {
 
 	for (std::vector<Account*>::iterator it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
 
@@ -55,7 +55,29 @@ void Bank::removeAccount(int id) {
 	std::cerr << "Bank: unknown account id, can't be deleted" << std::endl;
 }
 
-void Bank::makeWithdrawal(int id, int value) {
+void Bank::grantLoan(const int id, const int value) {
+
+	Account *account = NULL;
+	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
+
+		if ((*it)->_id == id) {
+			account = it;
+		}
+	}
+	if (account != NULL) {
+
+		if (loan > account->_value + account->_loan) {
+			std::cerr << "Bank: insuffisant founds on account n* " << account->_id << " to grant a loan of " << value << std::endl;
+		} else {
+			account->_loan = value;
+			std::cout << "Bank: loan of " << value << " granted to account n* " << account->id << std::endl;
+		}
+	} else {
+		std::cerr << "Bank: unknown id: " << id << std::endl;
+	}
+}
+
+void Bank::makeWithdrawal(const int id, const int value) {
 
 	Account *account = NULL;
 	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
@@ -74,11 +96,11 @@ void Bank::makeWithdrawal(int id, int value) {
 		account->_value =- value;
 		std::cout << "Bank: withdrawal of " << value << " made in account n* " << id << ". Account's value is now of " << account->_value << std::endl;
 	} else {
-		std::cerr << "Bank: unknown id" << std::endl;
+		std::cerr << "Bank: unknown id: " << id << std::endl;
 	}
 }
 
-void Bank::makeDeposit(int id, int value) {
+void Bank::makeDeposit(const int id, const int value) {
 
 	Account *account = NULL;
 	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
@@ -93,6 +115,11 @@ void Bank::makeDeposit(int id, int value) {
 		std::count << "Bank: deposit made on account n* " << id << ". Now at " << account->_value << std::endl;
 		//tax 5%
 	} else {
-		std::cerr << "Bank: unknown id" << std::endl;
+		std::cerr << "Bank: unknown id: " << id << std::endl;
 	}
+}
+
+int getLiquidity(void) const {
+
+	return (_liquidity);
 }
