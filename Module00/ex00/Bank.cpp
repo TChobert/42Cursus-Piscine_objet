@@ -10,6 +10,18 @@ Bank::~Bank(void) {
 	_clientAccounts.clear();
 }
 
+Account *Bank::getAccount(const int id) const {
+
+	Account *account = NULL;
+	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
+
+		if ((*it)->_id == id) {
+			account = it;
+		}
+	}
+	return (account);
+}
+
 void Bank::createAccount(const int value) {
 
 	if (value < 0) {
@@ -30,7 +42,7 @@ void Bank::registerAccount(Account *account) {
 		unique = true;
 		for (std::vector<Account*>::iterator it == _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
 
-			if ((*it)->_id = account->_id) {
+			if (getAccount(account->id)) {
 				++account->_id;
 				unique = false;
 				break ;
@@ -38,18 +50,6 @@ void Bank::registerAccount(Account *account) {
 		}
 	}
 	_clientAccounts.push_back(account);
-}
-
-Account *Bank::getAccount(const int id) const {
-
-	Account *account = NULL;
-	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
-
-		if ((*it)->_id == id) {
-			account = it;
-		}
-	}
-	return (account);
 }
 
 void Bank::removeAccount(const int id) {
