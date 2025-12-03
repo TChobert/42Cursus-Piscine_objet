@@ -11,6 +11,7 @@ class Bank {
 		std::vector<Account *> _clientAccounts;
 
 		void registerAccount(Account *account);
+		Account *getAccount(const int id) const;
 
 	public:
 

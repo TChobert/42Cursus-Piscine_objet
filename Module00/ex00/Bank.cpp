@@ -40,22 +40,7 @@ void Bank::registerAccount(Account *account) {
 	_clientAccounts.push_back(account);
 }
 
-void Bank::removeAccount(const int id) {
-
-	for (std::vector<Account*>::iterator it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
-
-		if ((*it)->_id == id) {
-			std::cout << "Bank: deleting account n* " << (*it)->_id << std::endl;
-			// 5 % ??
-			delete *it;
-			_clientAccounts.erase(*it);
-			return ;
-		}
-	}
-	std::cerr << "Bank: unknown account id, can't be deleted" << std::endl;
-}
-
-void Bank::grantLoan(const int id, const int value) {
+Account *Bank::getAccount(const int id) const {
 
 	Account *account = NULL;
 	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
@@ -64,6 +49,25 @@ void Bank::grantLoan(const int id, const int value) {
 			account = it;
 		}
 	}
+	return (account);
+}
+
+void Bank::removeAccount(const int id) {
+
+	Account *account = getAccount(id);
+	if (account != NULL) {
+			std::cout << "Bank: deleting account n* " << (*it)->_id << std::endl;
+			// 5 % ??
+			delete *it;
+			_clientAccounts.erase(*it);
+	} else {
+		std::cerr << "Bank: unknown account id, can't be deleted" << std::endl;
+	}
+}
+
+void Bank::grantLoan(const int id, const int value) {
+
+	Account *account = getAccount(id);
 	if (account != NULL) {
 
 		if (loan > account->_value + account->_loan) {
@@ -79,13 +83,7 @@ void Bank::grantLoan(const int id, const int value) {
 
 void Bank::makeWithdrawal(const int id, const int value) {
 
-	Account *account = NULL;
-	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
-
-		if ((*it)->_id == id) {
-			account = it;
-		}
-	}
+	Account *account = getAccount(id);
 	if (account != NULL) {
 
 		if (account->_value - value > 0) {
@@ -102,13 +100,7 @@ void Bank::makeWithdrawal(const int id, const int value) {
 
 void Bank::makeDeposit(const int id, const int value) {
 
-	Account *account = NULL;
-	for (std::iterator<Account*>::it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
-
-		if ((*it)->_id == id) {
-			account = it;
-		}
-	}
+	Account *account = getAccount(id);
 	if (account != NULL) {
 
 		account->_value += value;
