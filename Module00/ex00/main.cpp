@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include "Account.hpp"
 #include "Bank.hpp"
 
 int main(void) {
@@ -29,7 +28,8 @@ int main(void) {
 	//std::cout << " ----- " << std::endl;
 
 	bank.createAccount(200);
-	bank.
+	bank.createAccount(800);
+	bank.createAccount(-800);
 
 	std::cout << "Bank : " << std::endl;
 	std::cout << bank << std::endl;

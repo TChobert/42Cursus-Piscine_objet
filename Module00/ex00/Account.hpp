@@ -2,8 +2,6 @@
 
 # include <iostream>
 
-#include "Bank.hpp"
-
 class Account {
 
 	private:
