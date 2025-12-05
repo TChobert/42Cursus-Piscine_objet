@@ -26,8 +26,8 @@ class Graph {
 		Graph(void);
 		~Graph(void);
 
-		size_t getSize(void) const;
-
 		void addPoint(Vector2& point);
+
+		size_t getSize(void) const;
 		void Render(void) const;
 };
