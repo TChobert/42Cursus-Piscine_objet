@@ -12,14 +12,13 @@ Bank::~Bank(void) {
 
 Account *Bank::getAccount(const int id) const {
 
-	Account *account = NULL;
 	for (std::vector<Account *>::const_iterator it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
 
 		if ((*it)->getId() == id) {
-			account = *it;
+			return (*it);
 		}
 	}
-	return (account);
+	return (NULL);
 }
 
 void Bank::collectPercentage(const int value, const int percentage) {
@@ -41,21 +40,6 @@ void Bank::createAccount(const int value) {
 }
 
 void Bank::registerAccount(Account *account) {
-
-	bool unique = false;
-
-	while (!unique) {
-
-		unique = true;
-		for (std::vector<Account*>::iterator it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
-
-			if (getAccount(account->getId())) {
-				account->setId(account->getId() + 1);
-				unique = false;
-				break ;
-			}
-		}
-	}
 	_clientAccounts.push_back(account);
 }
 
