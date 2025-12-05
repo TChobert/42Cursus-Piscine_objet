@@ -30,6 +30,9 @@ int main(void) {
 	bank.createAccount(200);
 	bank.createAccount(800);
 	bank.createAccount(-800);
+	std::cout << "Bank funds before loan: " << bank.getLiquidity() << std::endl;
+	bank.grantLoan(1, 50);
+	std::cout << "Bank funds after loan: " << bank.getLiquidity() << std::endl;
 
 	std::cout << "Bank : " << std::endl;
 	std::cout << bank << std::endl;

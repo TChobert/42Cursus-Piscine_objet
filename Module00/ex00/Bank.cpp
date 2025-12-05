@@ -40,6 +40,21 @@ void Bank::createAccount(const int value) {
 }
 
 void Bank::registerAccount(Account *account) {
+
+	bool unique = false;
+
+	while (!unique) {
+
+		unique = true;
+		for (std::vector<Account*>::const_iterator it = _clientAccounts.begin(); it != _clientAccounts.end(); ++it) {
+
+			if ((*it)->getId() == account->getId()) {
+				account->setId(account->getId() + 1);
+				unique = false;
+				break ;
+			}
+		}
+	}
 	_clientAccounts.push_back(account);
 }
 
@@ -60,7 +75,7 @@ void Bank::removeAccount(const int id) {
 void Bank::grantLoan(const int id, const int value) {
 
 	if (value > _liquidity) {
-		std::cerr << "Bank: insuffisant credits to grant a loan of " << value << std::endl;
+		std::cerr << "Bank: insufficient credits to grant a loan of " << value << std::endl;
 		return ;
 	}
 	Account *account = getAccount(id);
@@ -79,7 +94,7 @@ void Bank::makeWithdrawal(const int id, const int value) {
 	if (account != NULL) {
 
 		if (value > account->getValue()) {
-			std::cerr << "Bank: insuffisant amount to make a withdrawal of " << value << ". Rejected." << std::endl;
+			std::cerr << "Bank: insufficient amount to make a withdrawal of " << value << ". Rejected." << std::endl;
 			return ;
 		}
 		account->makeWithdrawal(value);

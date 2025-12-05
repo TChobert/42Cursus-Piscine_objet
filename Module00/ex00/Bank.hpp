@@ -33,7 +33,7 @@ class Bank {
 			p_os << "Bank informations : " << std::endl;
 			p_os << "Liquidity : " << p_bank.getLiquidity() << std::endl;
 			for (std::vector<Account *>::const_iterator it = p_bank._clientAccounts.begin(); it != p_bank._clientAccounts.end(); ++it) {
-				p_os << *it << std::endl;
+				p_os << **it << std::endl;
 			}
 			return (p_os);
 	}
