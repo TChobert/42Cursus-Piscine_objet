@@ -1,5 +1,7 @@
 #pragma once
 
+# include <iostream>
+
 class Statistic {
 
 	private:
@@ -10,6 +12,7 @@ class Statistic {
 	public:
 
 		Statistic(void);
+		Statistic(int level, int exp);
 		~Statistic(void);
 		const int getLevel(void) const;
 		const int getExp(void) const;

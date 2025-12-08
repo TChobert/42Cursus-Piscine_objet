@@ -1,5 +1,7 @@
 #pragma once
 
+# include <iostream>
+
 # include "Position.hpp"
 # include "Statistic.hpp"
 
@@ -12,6 +14,6 @@ class Worker {
 
 	Public:
 
-		Worker(Position coord, Statistic stat);
+		Worker(Position& coord, Statistic& stats);
 		~Worker(void);
 };

@@ -11,11 +11,14 @@ class Position {
 	public:
 
 		Position(void);
+		Position(int x, int y, int z);
 		~Position(void);
 
 		const int getX(void) const;
 		const int getY(void) const;
 		const int getZ(void) const;
 
-		//setters ?
+		void setX(int x);
+		void setY(int y);
+		void setZ(int z);
 };
